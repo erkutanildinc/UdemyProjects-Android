@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="platinum">#E1DEE3</color>
+    <color name="paledogwood">#E3C5BF</color>
+    <color name="cordovan">#7A4048</color>
+    <color name="rosered">#B9314F</color>
+    <color name="lightGrey">#EAE8E8</color>
+</resources>
