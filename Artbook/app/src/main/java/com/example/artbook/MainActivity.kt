@@ -36,10 +36,17 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         list = db.getAll()
         var artAdapter = RecylerViewAdapter(list)
         recylerView.layoutManager = LinearLayoutManager(this)
         recylerView.adapter = artAdapter
+
+        artAdapter.notifyDataSetChanged()
     }
 
     val addArtBtnClick = View.OnClickListener {
