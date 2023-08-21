@@ -1,7 +1,6 @@
-package com.example.cryptoapp.service
+package com.example.composecryptoapp.service
 
-import com.example.cryptoapp.model.CryptoModel
-import retrofit2.Call
+import com.example.composecryptoapp.model.CryptoModel
 import retrofit2.Response
 import retrofit2.http.GET
 
