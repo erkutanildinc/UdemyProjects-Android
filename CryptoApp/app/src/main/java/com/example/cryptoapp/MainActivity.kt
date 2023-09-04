@@ -9,6 +9,9 @@ import com.example.cryptoapp.adapter.CryptoRecylerAdapter
 import com.example.cryptoapp.config.APIClient
 import com.example.cryptoapp.model.CryptoModel
 import com.example.cryptoapp.service.CryptoService
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -25,10 +28,19 @@ class MainActivity : AppCompatActivity(),CryptoRecylerAdapter.Listener{
     private var recylerAdapter : CryptoRecylerAdapter? = null
     var cryptoList = mutableListOf<CryptoModel>()
     private var job : Job? = null
+    lateinit var mAdView : AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        MobileAds.initialize(this) {
+
+        }
+
+        mAdView = findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
 
         recyclerView = findViewById(R.id.cryptoRecylerView)
 
