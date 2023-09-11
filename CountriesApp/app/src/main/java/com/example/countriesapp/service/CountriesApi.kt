@@ -13,7 +13,7 @@ class CountriesApi {
         Retrofit.Builder().baseUrl(Base_URL).addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build().create(CountriesAPIService::class.java)
 
-    fun getData() : Single<MutableList<Country>>{
+    fun getData() : Single<List<Country>>{
         return api.getCountries()
     }
 }

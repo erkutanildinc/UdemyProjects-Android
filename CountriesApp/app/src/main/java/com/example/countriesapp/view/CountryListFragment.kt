@@ -59,7 +59,7 @@ class CountryListFragment : Fragment() {
             countryRecylerView.visibility = View.GONE
             countryErrorMess.visibility = View.GONE
             countryLoadingBar.visibility = View.VISIBLE
-            countryListViewModel.refreshData()
+            countryListViewModel.refreshFromAPI()
             swipeRefresh.isRefreshing = false
         }
 
@@ -88,16 +88,16 @@ class CountryListFragment : Fragment() {
         })
 
         countryListViewModel.countryLoading.observe(viewLifecycleOwner, Observer {loading ->
-                loading?.let {
-                    if(loading){
-                        countryLoadingBar.visibility = View.VISIBLE
-                        countryRecylerView.visibility = View.GONE
-                        countryErrorMess.visibility = View.GONE
-                    }
-                    else{
-                        countryLoadingBar.visibility = View.GONE
-                    }
+            loading?.let {
+                if(loading){
+                    countryLoadingBar.visibility = View.VISIBLE
+                    countryRecylerView.visibility = View.GONE
+                    countryErrorMess.visibility = View.GONE
                 }
+                else{
+                    countryLoadingBar.visibility = View.GONE
+                }
+            }
         })
 
 

@@ -15,7 +15,7 @@ import com.example.countriesapp.util.placeHolderProgressBar
 import com.example.countriesapp.view.CountryListFragment
 import com.example.countriesapp.view.CountryListFragmentDirections
 
-class CountryAdapter(val list : MutableList<Country>) : RecyclerView.Adapter<CountryAdapter.CountryViewHolder>() {
+class CountryAdapter(val list : ArrayList<Country>) : RecyclerView.Adapter<CountryAdapter.CountryViewHolder>() {
 
     lateinit var countryName : TextView
     lateinit var countryRegion : TextView
@@ -42,7 +42,7 @@ class CountryAdapter(val list : MutableList<Country>) : RecyclerView.Adapter<Cou
 
         countryName.text = list.get(position).countryName
         countryRegion.text = list.get(position).countryRegion
-        countryFlag.downloadFromUrl(list.get(position).countryFlagUrl!!, placeHolderProgressBar(holder.view.context))
+        countryFlag.downloadFromUrl(list.get(position).imageUrl!!, placeHolderProgressBar(holder.view.context))
 
         holder.view.setOnClickListener {
             val action = CountryListFragmentDirections.actionCountryListFragmentToCountryDetailFragment()
@@ -50,7 +50,7 @@ class CountryAdapter(val list : MutableList<Country>) : RecyclerView.Adapter<Cou
         }
     }
 
-    fun updateCountryList(newCountryList : MutableList<Country>){
+    fun updateCountryList(newCountryList : List<Country>){
         list.clear()
         list.addAll(newCountryList)
         notifyDataSetChanged()
