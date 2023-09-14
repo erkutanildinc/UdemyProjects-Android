@@ -105,4 +105,9 @@ class CountryListViewModel(application: Application) : BaseViewModel(application
         countryError.value = false
         countryLoading.value = false
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
+    }
 }

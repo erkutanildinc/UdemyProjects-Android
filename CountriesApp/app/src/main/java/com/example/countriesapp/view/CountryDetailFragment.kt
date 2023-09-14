@@ -5,18 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.example.countriesapp.view.CountryDetailFragmentArgs
 import com.example.countriesapp.R
+import com.example.countriesapp.databinding.FragmentCountryDetailBinding
+import com.example.countriesapp.util.downloadFromUrl
+import com.example.countriesapp.util.placeHolderProgressBar
 import com.example.countriesapp.viewmodel.CountryDetailViewModel
 
 
 class CountryDetailFragment : Fragment() {
 
     private var countryUuid = 0
+    private lateinit var dataBinding : FragmentCountryDetailBinding
 
     private lateinit var viewModel : CountryDetailViewModel
     private lateinit var countryNameTextView : TextView
@@ -24,7 +30,7 @@ class CountryDetailFragment : Fragment() {
     private lateinit var countryRegionTextView : TextView
     private lateinit var countryCurrencyTextView : TextView
     private lateinit var countryLanguageTextView : TextView
-
+    private lateinit var countryImageView : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,26 +41,27 @@ class CountryDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_country_detail, container, false)
-
+        dataBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_country_detail,container,false)
+/*
         countryNameTextView = view.findViewById(R.id.countryDetailNameTextView)
         countryCapitalTextView = view.findViewById(R.id.countryDetailCapitalTextView)
         countryCurrencyTextView = view.findViewById(R.id.countryDetailCurrencyTextView)
         countryRegionTextView = view.findViewById(R.id.countryDetailRegionTextView)
         countryLanguageTextView = view.findViewById(R.id.countryDetailLanguageTextView)
-
-        return view
+        countryImageView = view.findViewById(R.id.countryDetailmageView)
+*/
+        return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(CountryDetailViewModel::class.java)
-        viewModel.getDataFromRoom()
-
         arguments?.let {
             countryUuid = CountryDetailFragmentArgs.fromBundle(it).countryUUID
         }
+
+        viewModel = ViewModelProvider(this).get(CountryDetailViewModel::class.java)
+        viewModel.getDataFromRoom(countryUuid)
 
         observeLiveData()
     }
@@ -63,11 +70,18 @@ class CountryDetailFragment : Fragment() {
 
         viewModel.countryLiveData.observe(viewLifecycleOwner, Observer {country->
             country?.let {
+                dataBinding.selectedCountry = it
+                /*
                 countryNameTextView.text = country.countryName
-                countryCapitalTextView.text = country.countryCapital
-                countryCurrencyTextView.text = country.countryCurrency
-                countryRegionTextView.text = country.countryRegion
-                countryLanguageTextView.text = country.countryLanguage
+                countryCapitalTextView.text = "Capital: " + country.countryCapital
+                countryCurrencyTextView.text = "Currency: "+ country.countryCurrency
+                countryRegionTextView.text = "Region: "+country.countryRegion
+                countryLanguageTextView.text = "Language: "+ country.countryLanguage
+                context?.let {
+                    countryImageView.downloadFromUrl(country.imageUrl!!, placeHolderProgressBar(it))
+                }
+                */
+
             }
         })
     }

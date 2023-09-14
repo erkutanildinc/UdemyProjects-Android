@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout  xmlns:android="http://schemas.android.com/apk/res/android">
+
     <LinearLayout
         android:background="@drawable/radius_layout_for_item"
         android:layout_marginHorizontal="15dp"
@@ -7,6 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:orientation="horizontal">
+        
+        <TextView
+            android:id="@+id/countryUUID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+        </TextView>
 
         <ImageView
             android:id="@+id/countryFlagImage"
@@ -29,7 +37,6 @@
                 android:id="@+id/countryNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Country Name"
                 android:textStyle="bold"
                 android:textColor="@color/blue"
                 android:padding="5dp"
@@ -39,7 +46,6 @@
                 android:id="@+id/countryRegionTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Country Region"
                 android:textStyle="italic"
                 android:padding="5dp"
                 android:textSize="18dp">

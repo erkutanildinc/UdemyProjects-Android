@@ -5,17 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.countriesapp.R
+import com.example.countriesapp.databinding.CountryRowItemBinding
 import com.example.countriesapp.model.Country
 import com.example.countriesapp.util.downloadFromUrl
 import com.example.countriesapp.util.placeHolderProgressBar
 import com.example.countriesapp.view.CountryListFragment
 import com.example.countriesapp.view.CountryListFragmentDirections
 
-class CountryAdapter(val list : ArrayList<Country>) : RecyclerView.Adapter<CountryAdapter.CountryViewHolder>() {
+class CountryAdapter(val list : ArrayList<Country>) : RecyclerView.Adapter<CountryAdapter.CountryViewHolder>(){
 
     lateinit var countryName : TextView
     lateinit var countryRegion : TextView
@@ -36,6 +38,7 @@ class CountryAdapter(val list : ArrayList<Country>) : RecyclerView.Adapter<Count
     }
 
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
+
         countryName = holder.view.findViewById(R.id.countryNameTextView)
         countryRegion = holder.view.findViewById(R.id.countryRegionTextView)
         countryFlag = holder.view.findViewById(R.id.countryFlagImage)
@@ -45,7 +48,7 @@ class CountryAdapter(val list : ArrayList<Country>) : RecyclerView.Adapter<Count
         countryFlag.downloadFromUrl(list.get(position).imageUrl!!, placeHolderProgressBar(holder.view.context))
 
         holder.view.setOnClickListener {
-            val action = CountryListFragmentDirections.actionCountryListFragmentToCountryDetailFragment()
+            val action = CountryListFragmentDirections.actionCountryListFragmentToCountryDetailFragment(list.get(position).uuid)
             Navigation.findNavController(it).navigate(action)
         }
     }

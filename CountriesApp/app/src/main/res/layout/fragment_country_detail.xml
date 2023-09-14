@@ -2,6 +2,11 @@
 <layout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="selectedCountry"
+            type="com.example.countriesapp.model.Country" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,16 +19,17 @@
         android:layout_marginTop="88dp"
         android:layout_marginHorizontal="40dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:downloadUrl="@{selectedCountry.imageUrl}"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></ImageView>
 
     <TextView
-        android:id="@+id/countryDetailCapitalTextView"
+        android:id="@+id/countryDetailNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Country Name"
+        android:text="@{selectedCountry.countryName}"
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,35 +37,35 @@
         app:layout_constraintTop_toBottomOf="@+id/countryDetailmageView"></TextView>
 
     <TextView
-        android:id="@+id/countryDetailNameTextView"
+        android:id="@+id/countryDetailCapitalTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:text="Country Capital"
+        android:text="@{selectedCountry.countryCapital}"
         android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countryDetailCapitalTextView"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/countryDetailNameTextView"></TextView>
 
     <TextView
         android:id="@+id/countryDetailRegionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Country Region"
+        android:text="@{selectedCountry.countryRegion}"
         android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countryDetailNameTextView"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/countryDetailCapitalTextView"></TextView>
 
     <TextView
         android:id="@+id/countryDetailCurrencyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Country Currency"
+        android:text="@{selectedCountry.countryCurrency}"
         android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -71,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Country Language"
+        android:text="@{selectedCountry.countryLanguage}"
         android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
