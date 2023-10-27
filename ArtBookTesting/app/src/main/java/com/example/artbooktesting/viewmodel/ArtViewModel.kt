@@ -1,25 +1,24 @@
 package com.example.artbooktesting.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.artbooktesting.model.ImageResponse
-import com.example.artbooktesting.repo.ArtRepository
 import com.example.artbooktesting.repo.ArtRepositoryInterface
 import com.example.artbooktesting.roomdb.Art
 import com.example.artbooktesting.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import javax.inject.Inject
 
-class ArtViewModel @ViewModelInject constructor(private val repository: ArtRepositoryInterface) : ViewModel() {
+@HiltViewModel
+class ArtViewModel @Inject constructor(private val repository: ArtRepositoryInterface) : ViewModel() {
 
     //Art Fragment
 
     val artList = repository.getArt()
-
-
 
     //ImageApı Fragment
 
@@ -30,9 +29,6 @@ class ArtViewModel @ViewModelInject constructor(private val repository: ArtRepos
     private val selectedImage = MutableLiveData<String>()
     val selectedImageURL : LiveData<String>
         get() = selectedImage
-
-
-
 
     //Art Details Fragment
 
