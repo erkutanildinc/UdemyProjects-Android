@@ -36,7 +36,10 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun injectRetrofitAPI() : RetrofitApi = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(BASE_URL).build().create(RetrofitApi::class.java)
+    fun injectRetrofitAPI() : RetrofitApi {
+        return Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_URL).build().create(RetrofitApi::class.java)
+    }
 
 
     @Singleton

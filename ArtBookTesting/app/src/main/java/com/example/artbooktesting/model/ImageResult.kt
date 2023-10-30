@@ -21,11 +21,10 @@ data class ImageResult(
     val user : String,
     @SerializedName("user_id")
     val userId : Int,
-    val userImageURL : Int,
+    val userImageURL : String,
     val views : Int,
-    val webFormatHeight : Int,
-    val webFormatURL : String,
-    val webFormatWidth : Int,
-
+    val webformatHeight : Int,
+    val webformatURL : String,
+    val webformatWidth : Int
 
 )

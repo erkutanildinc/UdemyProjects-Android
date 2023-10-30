@@ -61,7 +61,7 @@ class ArtViewModel @Inject constructor(private val repository: ArtRepositoryInte
     }
 
     fun setSelectedImage(url : String){
-        selectedImage.value = url
+        selectedImage.postValue(url)
     }
 
     fun deleteArt(art : Art) = viewModelScope.launch {
@@ -72,8 +72,9 @@ class ArtViewModel @Inject constructor(private val repository: ArtRepositoryInte
         repository.insertArt(art)
     }
 
-    fun searchForImage(searchString : String){
-        if(searchString.isEmpty()){
+    fun searchForImage (searchString : String) {
+
+        if(searchString.isEmpty()) {
             return
         }
         images.value = Resource.loading(null)
@@ -82,5 +83,6 @@ class ArtViewModel @Inject constructor(private val repository: ArtRepositoryInte
             images.value = response
         }
     }
+
 
 }
