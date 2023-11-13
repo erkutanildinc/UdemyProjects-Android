@@ -4,7 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cryptoappwithkoin.model.CryptoModel
+import com.example.cryptoappwithkoin.repository.CryptoDownload
 import com.example.cryptoappwithkoin.service.CryptoAPI
+import com.example.cryptoappwithkoin.util.Resource
 import com.example.cryptoappwithkoin.view.RecyclerViewAdapter
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -15,36 +17,35 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class CryptoViewModel : ViewModel() {
+class CryptoViewModel(private val cryptoDownloadRepository: CryptoDownload) : ViewModel() {
 
-    val cryptoList = MutableLiveData<List<CryptoModel>>()
-    val cryptoError = MutableLiveData<Boolean>()
-    val cryptoLoading = MutableLiveData<Boolean>()
+    val cryptoList = MutableLiveData<Resource<List<CryptoModel>>>()
+    val cryptoError = MutableLiveData<Resource<Boolean>>()
+    val cryptoLoading = MutableLiveData<Resource<Boolean>>()
     private var job : Job? = null
 
     val exceptionHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         println("Error: ${throwable.localizedMessage}")
-        cryptoError.value = true
+        cryptoError.value = Resource.error(throwable.localizedMessage ?: "error",true)
     }
 
     fun getDataFromApi(){
 
-        cryptoLoading.value = true
+        cryptoLoading.value = Resource.loading(data = true)
 
-        val BASE_URL = "https://raw.githubusercontent.com/"
-        val retrofit = Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build().create(
+        /*val retrofit = Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build().create(
             CryptoAPI::class.java)
+            */
 
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = retrofit.getData()
+
+            val resource = cryptoDownloadRepository.downloadCryptos()
 
             withContext(Dispatchers.Main){
-                if(response.isSuccessful){
-                    cryptoError.value = false
-                    cryptoLoading.value = false
-                    response.body()?.let {
-                        cryptoList.value = it
-                    }
+                resource.data?.let {
+                    cryptoList.value =  resource
+                    cryptoLoading.value = Resource.loading(data = false)
+                    cryptoError.value = Resource.error("",data=false)
                 }
             }
         }
