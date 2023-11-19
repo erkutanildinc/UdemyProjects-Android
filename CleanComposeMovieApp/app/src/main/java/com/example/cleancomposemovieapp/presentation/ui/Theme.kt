@@ -1,4 +1,4 @@
-package com.example.cleancomposemovieapp.presentation.theme.ui
+package com.example.cleancomposemovieapp.presentation.ui
 
 import android.app.Activity
 import android.os.Build
