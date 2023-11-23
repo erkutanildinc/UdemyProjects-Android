@@ -10,6 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.cleancomposemovieapp.presentation.movie_list.views.MovieListScreen
 import com.example.cleancomposemovieapp.presentation.ui.CleanComposeMovieAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +28,15 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = "movie_list_screen"){
+                        composable(route = "movie_list_screen"){
+                            MovieListScreen(navController = navController)
+                        }
+                        composable(route = "movie_detail_screen"){
 
+                        }
+                    }
                 }
             }
         }
