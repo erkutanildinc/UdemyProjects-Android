@@ -50,7 +50,9 @@ fun MovieListScreen(
             
             LazyColumn(modifier= Modifier.fillMaxSize()){
                 items(state.movies){
-                    Text(text = it.Title)
+                    MovieListRow(movie = it, onItemClick = {
+                        navController.navigate("movie_detail_screen"+"/${it.imdbID}")
+                    })
                 }
             }
         }
@@ -90,7 +92,7 @@ fun MovieSearchBar(
                     Color.White,
                     CircleShape
                 )
-                .padding(20.dp)
+                .padding(horizontal = 20.dp)
                 .onFocusChanged {
                     isHintDisplay = it.isFocused != true && text.isEmpty()
                 }
